@@ -7,7 +7,7 @@ ARG PHP_MEMORY_LIMIT=2G
 RUN apt-get update \
     && apt-get install -y --no-install-recommends vim curl debconf subversion git apt-transport-https apt-utils \
     build-essential locales acl mailutils wget nodejs zlib1g-dev zip unzip \
-    gnupg gnupg1 gnupg2 libzip-dev libicu-dev npm
+    gnupg gnupg1 gnupg2 libzip-dev libicu-dev npm curl
 
 RUN docker-php-ext-install pdo pdo_mysql zip intl opcache \
     && pecl install xdebug \
@@ -46,6 +46,9 @@ RUN wget --no-check-certificate https://github.com/fabpot/local-php-security-che
     mv local-php-security-checker_1.0.0_linux_386 local-php-security-checker && \
     chmod +x local-php-security-checker && \
     mv local-php-security-checker /usr/local/bin/local-php-security-checker
+
+RUN curl -sL https://deb.nodesource.com/setup_18.x  | bash -
+RUN apt-get -y install nodejs
 
 RUN npm install yarn
 
